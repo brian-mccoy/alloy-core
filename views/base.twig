@@ -1,0 +1,21 @@
+{% block html_head_container %}
+
+	{% include 'html-header.twig' %}
+
+	{% block head %}{% endblock %}
+</head>
+
+{% endblock %}
+
+<body {{function('body_class')}} data-template="base.twig">
+
+{{ function('get_header') }}
+
+{% block content %}
+	Sorry, no content
+{% endblock %}
+
+{{ function('get_footer') }}
+{{ function('wp_footer') }}
+</body>
+</html>
