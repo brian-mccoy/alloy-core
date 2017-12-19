@@ -13,8 +13,6 @@ core_register_field_group( array(
         ),
         'fields' => array(
 
-            core_field( 'text', 'Email Subscribe form ID', array() )
-
         )
     )
 );
