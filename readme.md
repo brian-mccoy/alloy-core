@@ -27,6 +27,7 @@
 * For each template, post type or options page you should create a new PHP file in the directory inside your theme `/app/custom-fields`. In terms of naming convention it should match the template or post type name. Examples: `/app/custom-fields/front-page.acf.php` or `/app/custom-fields/articles.acf.php`
 * An options page is setup by default in `functions.php`.
 * A wrapper is available for the ACF PHP API to streamline development. See `/app/custom-fields/examples.acf.php`.
+* Using `core_field` the label will be used as the field name unless the `name` key is present in the args array.
 
 ## Template Development
 * By default the header, footer and homepage (front-page.php) are set up for you.

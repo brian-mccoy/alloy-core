@@ -13,5 +13,7 @@ core_register_field_group( array(
 	'hide_on_screen' => array( 'the_content' ),
 	'fields' => array(
 
+		core_field( 'text', 'Hello' )
+
 	)
 ) );
