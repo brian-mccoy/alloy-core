@@ -1,5 +1,11 @@
 # Theme Development
 
+## Setup
+* Clone or download this repo into your theme folder. Ie: `wp-content/themes/your-theme`
+* Configure `style.css` with the appropriate names.
+* Install and activate the plugin dependencies listed below.
+* Activate your theme.
+
 ## Plugin Dependencies
 * [Timber](https://github.com/timber/timber) / [Timber Docs](https://github.com/timber/timber/wiki/Timber-docs)
 * [Advanced Custom Fields](http://advancedcustomfields.com)
