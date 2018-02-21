@@ -1,59 +1,54 @@
 <?php
-core_register_field_group( array(
-	'title' => 'Example Fields',
-	'location' => array(
-		array(
-			array(
-				'param' => 'page_template',
-				'operator' => '==',
-				'value' => 'page.php'
-			)
-		)
-	),
-	'fields' => array(
 
-		// Field example. The first parameter is field type. Second is label. Third is all other arguments.
-		core_field( 'text', 'Heading' ),
+$group_args = [
+	'title'          => 'Example Field Group',
+	'location_is'    => [ 'options_page', 'acf-options' ],
+	'hide_on_screen' => [ 'the_content' ]
+];
 
-		core_field( 'image', 'Photo', array(
-			'instructions' => 'Please upload a photo.'
-		) ),
+$fields = [
 
-		// Repeater field example:
-		core_field( 'repeater', 'Repeater Example', array(
-			'sub_fields' => array(
+	[ 'tab', 'Example Tab', [ 'placement' => 'left' ] ],
 
-				core_field( 'text', 'Button Text' ),
-				core_field( 'text', 'Button Link' )
+	[ 'text', 'Example Field' ],
 
-			),
-			'max' => 4,
-			'layout' => 'block',
-			'button_label' => 'Add Button'
-		) ),
+	[ 'repeater', 'Files', [
+		'sub_fields' => [
+			[ 'text', 'File URL' ],
+			[ 'textarea', 'File Description' ]
+		],
+		'max' => 4,
+		'layout' => 'block',
+		'button_label' => 'Add Link or File'
+	] ],
 
-		// Flexible content example:
-		core_field( 'flexible_content', 'Content Blocks', array(
-			'key' => 'content_blocks_flexible_content',
-			'button_label' => 'Add Block',
-			'layouts' => array(
+	[ 'flexible_content', 'Content Blocks 123', [
+		'button_label' => 'Add Block',
+		'layouts' => [
 
-				core_layout( 'Intro Banner', array(
-					'layout' => 'block',
-					'sub_fields' => array(
+			[ 'Hero', [
+				'display' => 'block',
+				'sub_fields' => [
 
-						core_field( 'text', 'Heading' ),
-						core_field( 'wysiwyg', 'Description' ),
-						core_field( 'image', 'Background Image', array(
-							'instructions' => 'Dimensions: 1300 x 600. Format: JPG, PNG',
-							'return_format' => 'url'
-						) ),
+					[ 'text', 'Heading' ],
+					[ 'textarea', 'Description' ]
 
-					)
-				) )
-			)
+				]
+			] ],
 
-		) )
+			[ 'Intro', [
+				'layout' => 'block',
+				'sub_fields' => [
 
-	)
-) );
+					[ 'text', 'Heading' ],
+					[ 'textarea', 'Description' ]
+
+				]
+			] ]
+
+		]
+	] ]
+
+];
+
+$field_group = core_register_field_group( 'example-acf', $group_args, $fields );

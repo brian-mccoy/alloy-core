@@ -1,18 +1,12 @@
 <?php
 
-core_register_field_group( array(
-        'title' => 'Site Options',
-        'location' => array(
-            array(
-                array(
-                    'param' => 'options_page',
-                    'operator' => '==',
-                    'value' => 'acf-options'
-                )
-            )
-        ),
-        'fields' => array(
+$group_args = [
+	'title'          => 'Site Options',
+	'location_is'    => [ 'options_page', 'acf-options' ]
+];
 
-        )
-    )
-);
+$fields = [
+
+];
+
+$field_group = core_register_field_group( 'options-acf', $group_args, $fields );
