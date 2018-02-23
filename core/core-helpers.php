@@ -30,3 +30,13 @@ function core_get_fields( $key='', $fields=array() ) {
 function sanitize_title_underscore( $string='' ) {
     return str_replace( '-', '_', sanitize_title( $string ) );
 }
+
+function core_default( $key='', $args=array(), $default='' ) {
+
+    if( !array_key_exists( $key, $args ) ) {
+		return $default;
+	}
+
+    return $args[$key];
+
+}
