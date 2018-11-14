@@ -51,3 +51,7 @@ function core_default( $key='', $args=array(), $default='' ) {
     return $args[$key];
 
 }
+
+add_action('wp_head', function() {
+    echo '<style>.hie:empty { display: none; }</style>';
+});
