@@ -1,11 +1,47 @@
 <?php
-function core_field( $type='text', $label='', $args=array(), $unique_key='' ) {
+function core_field( $type='text', $label='', $args=array(), $unique_key='', $context='' ) {
 
 	// Define the field type.
 	$args['type'] = $type;
 
 	// Define the field label.
 	$args['label'] = $label;
+
+	// Custom Alloy field types here
+	// include:
+	if ($args['type'] == 'include') {
+
+			// We're using $label as the path to the file. If it doesn't exist we can't do much
+			if (!is_file($label)) {
+					return;
+			}
+
+			// Get the contents of the file
+			$file_data = include $label;
+
+			// Clean up the fields we pulled in for creating in ACF
+			if (!empty($file_data)) {
+				$fields = [];
+
+				$include_fields_key = 'core_included_field_' . $unique_key;
+
+				foreach ($file_data as $data) {
+
+					$core_field = core_field($data[0], $data[1], $data[2], $include_fields_key);
+
+					if (array_key_exists('sub_fields', $core_field) || array_key_exists('layouts', $core_field)) {
+						$fields = array_merge($fields, $core_field);
+					} else {
+						$fields = array_merge($fields, [$core_field]);
+					}
+
+				}
+
+			}
+
+			return $fields;
+
+	}
 
 	// If the "name" of the field is not defined create it based on the field label.
 	if( !array_key_exists( 'name', $args ) ) {
@@ -52,7 +88,7 @@ function core_field( $type='text', $label='', $args=array(), $unique_key='' ) {
 
 				foreach( $layout[1]['sub_fields'] as $field ) {
 					$field_key = $layout_key;
-					$layout_fields[] = core_field( $field[0], $field[1], $field[2], $field_key );
+					$layout_fields[] = core_field( $field[0], $field[1], $field[2], $field_key, 'flexible_content' );
 				}
 
 				$layouts[$layout_key]['sub_fields'] = $layout_fields;
@@ -71,7 +107,7 @@ function core_field( $type='text', $label='', $args=array(), $unique_key='' ) {
 		foreach( $args['sub_fields'] as $key => $sub_field ) {
 
 			$new_key = 'core_repeater_field_' . $args['key'];
-			$args['sub_fields'][$key] = core_field( $sub_field[0], $sub_field[1], $sub_field[2], $new_key );
+			$args['sub_fields'][$key] = core_field( $sub_field[0], $sub_field[1], $sub_field[2], $new_key, 'repeater' );
 
 		}
 
