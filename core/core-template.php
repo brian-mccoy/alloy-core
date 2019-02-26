@@ -54,14 +54,8 @@ class Core_Template {
 
     }
 
-    // Add some commonly used variables to the data.
-    $data['constants'] = array(
-        'blogURL' => _blogURL,
-        'templateURL' => _templateURL,
-	    'templateDir' => _templateDir,
-        'mediaURL' => _templateURL . '/assets/resources',
-        'currentUrl' => $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']
-    );
+    // Load global variables
+    $data['site'] = include _templateDir . '/app/app-config.php';
 
     // Display the template.
     Timber::render( $this->template_file, $data);
